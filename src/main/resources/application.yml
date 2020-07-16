@@ -1,0 +1,19 @@
+beetlsql:
+  sqlPath: /sql # resources/sql文件目录
+  # 扫描包及其子包下的所有以Dao结尾的Mapper类
+  basePackage: io.beetlsql.cli.dao
+  daoSuffix: Dao
+  nameConversion: org.beetl.sql.core.UnderlinedNameConversion #将数据库里的含有下划线字段转化为java的驼峰命名风格
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+spring:
+  main:
+    web-application-type: none
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${ds.url}?serverTimezone=UTC
+    username: ${ds.user}
+    password: ${ds.password}
+  profiles:
+    active: dev
+

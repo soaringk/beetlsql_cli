@@ -1,0 +1,15 @@
+ds:
+  url: 127.0.0.1:3306/gps_traffic
+  user: root
+  password: 123456
+  max-page-size: 100
+
+logging:
+  level:
+    io.beetlsql.cli: debug
+
+beetl-beetlsql:
+  dev: true # 将sql打印到控制台
+
+spring:
+  profiles: test
