@@ -4,10 +4,8 @@ import com.google.common.collect.Sets;
 import io.beetlsql.cli.ConsoleApplicationTests;
 import io.beetlsql.cli.entity.VehicleLocation;
 import lombok.extern.slf4j.Slf4j;
-import org.beetl.sql.core.engine.PageQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 import java.util.List;
 import java.util.Set;
@@ -24,15 +22,6 @@ public class VehicleLocationDaoTest extends ConsoleApplicationTests {
         log.debug("[Test]: Find a single row of info...");
         long id = 1;
         log.debug("[Test]: {}", vehicleLocationDao.find(id));
-    }
-
-    @Test
-    void pageInfoTest() {
-        log.debug("[Test]: Get a pageQuery of size 1000...");
-        PageQuery<VehicleLocation> query = new PageQuery<>();
-        query.setPageSize(1000);
-        vehicleLocationDao.pageInfo(query);
-        assertEquals(1000, query.getPageSize());
     }
 
     @Test

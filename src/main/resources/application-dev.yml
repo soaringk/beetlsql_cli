@@ -2,7 +2,7 @@ ds:
   url: 127.0.0.1:3306/gps_traffic
   user: root
   password: 123456
-  max-page-size: 100
+  max-page-size: 1000
 
 logging:
   level:

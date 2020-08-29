@@ -5,7 +5,6 @@ import org.beetl.sql.core.db.MySqlStyle;
 import org.beetl.sql.ext.DebugInterceptor;
 import org.beetl.sql.ext.gen.GenConfig;
 import org.beetl.sql.ext.gen.MapperCodeGen;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +14,6 @@ import java.util.Scanner;
 /**
  * @功能：beetl读取数据库，自动生成实体类、md文件、dao
  */
-@Component
 public class GenSqlTool {
     private static String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
     private static String URL = "jdbc:mysql://127.0.0.1:3306/user?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC";

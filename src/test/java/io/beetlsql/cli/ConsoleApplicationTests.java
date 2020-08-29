@@ -1,7 +1,7 @@
 package io.beetlsql.cli;
 
 import io.beetlsql.cli.component.CommandLineTaskExecutor;
-import io.beetlsql.cli.service.VehicleLocation.VehicleLocationService;
+import io.beetlsql.cli.service.vehicleLocation.VehicleLocationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;

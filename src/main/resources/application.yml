@@ -5,6 +5,7 @@ beetlsql:
   daoSuffix: Dao
   nameConversion: org.beetl.sql.core.UnderlinedNameConversion #将数据库里的含有下划线字段转化为java的驼峰命名风格
   dbStyle: org.beetl.sql.core.db.MySqlStyle
+  intercept-max-params: 50
 
 spring:
   main:

@@ -1,3 +1,84 @@
+getBatchState
+===
+* 按页查询，仅查询 state
+
+    SELECT `id`, `state`
+    FROM `vehicle_location`
+    WHERE `state` <> 0 AND `state_info` IS NULL LIMIT #limit#
+    FOR UPDATE
+
+getBatchAlarm
+===
+* 按页查询，仅查询 alarm
+
+    SELECT `id`, `alarm`
+    FROM `vehicle_location`
+    WHERE `alarm` <> 0 AND `alarm_info` IS NULL LIMIT #limit#
+    FOR UPDATE
+
+
+updateBatchInfo
+===
+* 直接更新
+
+	UPDATE `vehicle_location`
+	SET #use("infoCols")#
+	where `id`=#id#
+
+infoCols
+===
+* 指定需要更新的列。 trim 函数剔除结尾的 ',' 符号，避免语法错误
+
+    @trim(){
+        @if(!isEmpty(stateInfo)){
+            `state_info`=#stateInfo#,
+        @} if(!isEmpty(alarmInfo)){
+            `alarm_info`=#alarmInfo#,
+        @}
+    @}
+
+
+insertUpdateState
+===
+* SQL 技巧（比直接 update 速度快）。NOTE: Mysql 5.7 下并发执行该类 SQL 会造成死锁
+
+	INSERT INTO `vehicle_location`
+	(`id`, `state_info`) VALUES
+    @trim(){
+        @for(vl in vls){
+            (#vl.id#, #vl.stateInfo#),
+        @}
+    @}	
+	ON DUPLICATE KEY UPDATE `state_info`=values(`state_info`)
+
+
+insertUpdateAlarm
+===
+	INSERT INTO `vehicle_location`
+	(`id`, `alarm_info`) VALUES
+    @trim(){
+        @for(vl in vls){
+            (#vl.id#, #vl.alarmInfo#),
+        @}
+    @}	
+	ON DUPLICATE KEY UPDATE `alarm_info`=values(`alarm_info`)
+
+
+countRemain
+===
+* 返回未完全设置 info 的数据总数
+
+    (SELECT `alarm`
+     FROM `vehicle_location`
+     WHERE `alarm` <> 0 AND `alarm_info` IS NULL
+    )
+    UNION
+    (SELECT `state`
+     FROM `vehicle_location`
+     WHERE `state` <> 0 AND `state_info` IS NULL
+    )
+
+
 find
 ===
 
@@ -7,58 +88,15 @@ find
 
 cols
 ===
-* 查询限定的 column
 
     @trim(){
 	    `id`,
 	    `state`,
 	    `alarm`,
-        `state_info`,
-        `alarm_info`,
+	    `state_info`,
+	    `alarm_info`,
     @}
 
-pageInfo
-===
-* 按页查询
-
-    SELECT
-    @pageTag(){
-     #use("cols")#
-    @} 
-    FROM `vehicle_location`
-    WHERE #use("remainCond")#
-
-remainCond
-===
-* 如果 alarm 不为 0 且 alarm_info 为空（未更新），或者 state 不为 0 且 state_info 为空（未更新），为真。
-
-    (`alarm` <> 0 AND `alarm_info` IS NULL)
-    OR (`state` <> 0 AND `state_info` IS NULL)
-
-updateBatchInfo
-===
-* 
-	
-	UPDATE `vehicle_location`
-	SET #use("infoCols")#
-	where `id`=#id#
-
-infoCols
-===
-* 需要更新的列。 trim 函数剔除结尾的 ',' 符号，避免语法错误
-
-    @trim(){
-        `state_info`=#stateInfo#,
-        `alarm_info`=#alarmInfo#,
-    @}
-
-countRemain
-===
-* 返回未完全设置 info 的数据总数
-
-    SELECT COUNT(1)
-    FROM `vehicle_location`
-    WHERE #use("remainCond")#
 
 condition
 ===

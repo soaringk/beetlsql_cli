@@ -21,6 +21,7 @@ public class AlarmCode {
 
 
     public static String Decode(Integer alarm) {
+        if (alarm == null) return null;
         String code = Integer.toBinaryString(alarm);
         char[] bits = Strings.padStart(code, BITS_MAX_LENGTH, '0').toCharArray();
 

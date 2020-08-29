@@ -11,7 +11,7 @@
     <groupId>io.beetlsql.cli</groupId>
     <artifactId>beetlsql_cli</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gps_traffic</name>
+    <name>beetlsql_cli</name>
     <description>将位图编码转换成文字描述</description>
 
     <properties>

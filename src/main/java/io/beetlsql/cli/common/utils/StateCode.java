@@ -19,6 +19,7 @@ public class StateCode {
             .build();
 
     public static String Decode(Integer state) {
+        if (state == null) return null;
         String code = Integer.toBinaryString(state);
         char[] bits = Strings.padStart(code, BITS_MAX_LENGTH, '0').toCharArray();
 
